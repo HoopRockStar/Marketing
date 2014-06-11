@@ -1,0 +1,133 @@
+<?php
+ob_start();
+require("includes/db.php");
+
+main("Select a Record from the Database:");
+
+// Control the operation of a page
+function main($title = "") {
+    include("includes/header.php");
+    showContent($title);
+    include("includes/footer.php");
+}
+
+// Display the content of a page
+function showContent($title) {
+    require "includes/dbconvars.php";
+    $dbCnx = mysql_connect($dbhost, $dbuser, $dbpwd)
+        or die(mysql_error());
+    mysql_select_db($dbname, $dbCnx)
+      or die(mysql_error());
+
+    if (!session_id()) session_start();
+    $selection = $_SESSION["selection"];
+    $userEntry = $_REQUEST["userEntry"];
+
+    if (!get_magic_quotes_gpc()) {
+      $selection = mysql_real_escape_string($selection);
+      $userEntry = mysql_real_escape_string($userEntry);
+    }
+
+
+ /**   $sql = "
+        SELECT ID, FIRST_NAME, LAST_NAME, COMPANY, STREET, CATEGORY
+        FROM scratch
+        WHERE $selection LIKE '$userEntry%'
+        ";
+    $result = mysql_query($sql); */
+
+    $result = queryDB($selection, $userentry, "scratch");
+
+    echo "<h3>$title</h3>\n";
+    echo "<table width=\"55%\">\n";
+    showHeading();
+    while ($row = mysql_fetch_row($result)) {
+        list($id, $fname, $lname, $company, $address, $category) = $row;
+        showItem($id, $fname, $lname, $company, $address, $category);
+    }
+    echo "</table>\n";
+
+  mysql_free_result($result);
+  mysql_close($dbCnx);
+}
+
+function queryDB($selection, $userentry, $dbname) {
+
+    $sql = "
+        SELECT ID, FIRST_NAME, LAST_NAME, COMPANY, STREET, CATEGORY
+        FROM $dbname
+        WHERE $selection LIKE '$userEntry%'
+        ";
+    $result = mysql_query($sql);
+    return $result;
+}
+
+
+// Display the table heading
+function showHeading() {
+    echo <<<HTML
+<tr>
+  <td bgcolor="green">
+      <font face="verdana" size="2" color="white">&nbsp;<b>Select One</b></font>
+  </td>
+  <td bgcolor="green">
+    <font face="verdana" size="2" color="white">&nbsp;<b>First Name</b></font>
+  </td>
+  <td bgcolor="green">
+    <font face="verdana" size="2" color="white">&nbsp;<b>Last Name</b>&nbsp;</font>
+  </td>
+  <td bgcolor="green">
+    <font face="verdana" size="2" color="white">&nbsp;<b>Company</b></font>
+  </td>
+  <td bgcolor="green" width="150">
+    <font face="verdana" size="2" color="white">&nbsp;<b>Address</b></font>
+  </td>
+  <td bgcolor="green" width="150">
+      <font face="verdana" size="2" color="white">&nbsp;<b>Database</b></font>
+  </td>
+</tr>
+
+HTML;
+}
+
+// Display each table item
+function showItem($id, $fname, $lname, $company, $street, $category) {
+
+    echo <<<HTML
+<form action="DisplayRecords.php" method="POST">
+<tr>
+  <td>
+    <input type="radio" name="record" value="$id">
+  </td>
+  <td>
+    <font face="verdana" size="2" color="black">$fname</font>
+    </input>
+  </td>
+  <td>
+      <font face="verdana" size="2" color="black">$lname</font>
+  </td>
+  <td>
+      <font face="verdana" size="2" color="black">$company</font>
+  </td>
+  <td>
+      <font face="verdana" size="2" color="black">$street</font>
+  </td>
+  <td>
+        <font face="verdana" size="2" color="black">$category</font>
+  </td>
+  <td>
+      <input type="submit" name="nextb" value="View">
+  </td>
+</tr>
+<tr>
+  <td width="100%" colspan="6">
+    <hr size="1" color="red" noshade>
+  </td>
+</tr>
+</form>
+
+HTML;
+}
+
+?>
+

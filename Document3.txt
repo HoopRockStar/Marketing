@@ -1,0 +1,11 @@
+CREATE TABLE `users` (
+  `UserName` varchar(16) NOT NULL default '',
+  `Userpwd` varchar(16) NOT NULL default '',
+  `Salt` varchar(4) NOT NULL default '',
+  `Email` varchar(100) default NULL,
+  `CustomerID` int(10) unsigned default NULL,
+  PRIMARY KEY  (`UserName`),
+  KEY `UserName_idx` (`UserName`),
+  KEY `Userpwd_idx` (`Userpwd`),
+  KEY `CustomerID_idx` (`CustomerID`)
+)

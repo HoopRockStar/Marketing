@@ -1,0 +1,25 @@
+<style type="text/css" media="all">@import "mynormal.css";</style>
+
+<link rel="stylesheet" type="text/css" href="myprint.css" media="print" />
+
+Now, if you had a body with 3 divs like this:
+
+<div id="noprint1">Lorem ipsum</div>
+<div id="printme">dolor sit amet</div>
+<div id="noprint2">consectetuer adipiscing elit</div>
+
+Your mynormal.css style sheet might contain definitions like:
+
+#noprint1 {color: #ff0000;}
+#noprint2 {color: #00ff00;}
+#printme {color: #0000ff;}
+
+And your myprint.css style sheet would contain definitions like:
+
+#noprint1 {display: none;}
+#noprint2 (display: none;}
+#printme {color: #0000ff;}
+
+display:none will hide those divs from the printer.
+
+This solution will work with standards compliant browsers. 

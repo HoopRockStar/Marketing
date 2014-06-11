@@ -1,0 +1,217 @@
+<?php
+ob_start();
+require("includes/db.php");
+if (!session_id()) session_start();
+
+include "includes/redirect.php";
+include "includes/formverifier.php";
+include "includes/header.php";
+include "includes/footer.php";
+
+main("");
+
+// Control the operation of a page
+function main($title = "") {
+  $id = $_REQUEST["record"];
+  $_SESSION["id"] = $id;
+  $category = $_SESSION["category"];
+  print "id: $id";
+  print "category: $category";
+  include("includes/header.php");
+  showContent($title, $category, $id);
+  include("includes/footer.php");
+}
+
+// Display the content of a page
+function showContent($title, $category, $id) {
+
+    $db = new DB();
+
+    $sql = "
+          SELECT SALUTATION as 'Salutation:', FIRST_NAME as 'First Name:', LAST_NAME as 'Last Name:', TITLE as 'Title:', FIRST_NAME_BASIS as 'First Name Basis:'
+          FROM $category
+          WHERE ID='$id';
+          ";
+
+    $result = $db->query($sql);
+    $row = mysql_fetch_row($result);
+
+    $_SESSION["salutation"] = mysql_result($result, 0, 0);
+    $_SESSION["fname"] = mysql_result($result, 0, 1);
+    $_SESSION["lname"] = mysql_result($result, 0, 2);
+    $_SESSION["title"] = mysql_result($result, 0, 3);
+    $_SESSION["fnbasis"] = mysql_result($result, 0, 4);
+
+    echo "<h1>$title</h1>\n";
+    echo "<h2 class=\"cat\">$category</h2>";
+    echo "<div class=\"partition1\">";
+    echo "<table border=\"1\">\n";
+    for ($i = 0; $i < mysql_num_fields($result); $i++) {
+      echo "<tr>";
+      echo "<td bgcolor=\"green\" class=\"td3\">";
+      echo "<font face=\"verdana\" size=\"2\" color=\"white\"><B>";
+      echo mysql_field_name($result, $i);
+      echo "</B></font>";
+      echo "</td><td bgcolor=\"#DFFFC8\" class=\"td3\">";
+      echo "<font face=\"verdana\" size=\"2\" color=\"black\"><B>";
+      echo $row[$i];
+      echo "</B></font>";
+      echo "</td></tr>\n";
+    }
+    echo "</table>\n";
+    echo "</div>";
+
+
+  $sql = "
+          SELECT COMPANY as 'Company:', STREET as 'Address:', CITY_STATE_ZIP as 'City, State Zip:', TELEPHONE_NUMBER as 'Phone:', FAX_NUMBER as 'Fax:', EMAIL as 'Email:'
+          FROM $category
+          WHERE ID='$id';
+        ";
+
+  $result = $db->query($sql);
+  $row = mysql_fetch_row($result);
+
+  $_SESSION["company"] = mysql_result($result, 0, 0);
+  $_SESSION["street"] = mysql_result($result, 0, 1);
+  $_SESSION["csz"] = mysql_result($result, 0, 2);
+  $_SESSION["phone"] = mysql_result($result, 0, 3);
+  $_SESSION["fax"] = mysql_result($result, 0, 4);
+    $_SESSION["email"] = mysql_result($result, 0, 5);
+
+  echo "<div class=\"partition2\">";
+  echo "<table border=\"1\">\n";
+  for ($i = 0; $i < mysql_num_fields($result); $i++) {
+    echo "<tr>";
+    echo "<td bgcolor=\"green\" class=\"td3\">";
+    echo "<font face=\"verdana\" size=\"2\" color=\"white\"><B>";
+    echo mysql_field_name($result, $i);
+    echo "</B></font>";
+    echo "</td><td bgcolor=\"#DFFFC8\" class\"td3\">";
+    echo "<font face=\"verdana\" size=\"2\" color=\"black\"><B>";
+
+    if (mysql_field_name($result, $i)=="Phone:" || mysql_field_name($result, $i)=="Fax:") {
+      $row[$i] = "(".substr($row[$i], 0, 3).") ".substr($row[$i], 3,3)."-".substr($row[$i],6,4);
+      echo $row[$i];
+    }
+
+    else {
+      echo $row[$i];
+    }
+
+    echo "</B></font>";
+    echo "</td></tr>\n";
+  }
+  echo "</table>\n";
+    echo "</div>";
+
+  if ($category == 'Scratch' || $category == 'Scratch2')
+  {
+    $sql = "
+        SELECT PRIORITY as 'Priority:', REFERAL as 'Referal:', PERMISSION as 'Permission:', NEWSLETTER as 'Newsletter:', TGT_DBF as 'Target Database:'
+        FROM $category
+        WHERE ID='$id'
+      ";
+
+    $result = $db->query($sql);
+    $row = mysql_fetch_row($result);
+
+    $_SESSION["priority"] = mysql_result($result, 0, 0);
+    $_SESSION["referal"] = mysql_result($result, 0, 1);
+    $_SESSION["permission"] = mysql_result($result, 0, 2);
+    $_SESSION["newsletter"] = mysql_result($result, 0, 3);
+      $_SESSION["targetdb"] = mysql_result($result, 0, 4);
+
+    echo "<div class=\"partition3\">";
+    echo "<table border=\"1\">\n";
+    for ($i = 0; $i < mysql_num_fields($result); $i++) {
+        echo "<tr>";
+        echo "<td bgcolor=\"green\" class=\"td3\">";
+        echo "<font face=\"verdana\" size=\"2\" color=\"white\"><B>";
+        echo mysql_field_name($result, $i);
+        echo "</B></font>";
+        echo "</td><td bgcolor=\"#DFFFC8\" class=\"td3\">";
+        echo "<font face=\"verdana\" size=\"2\" color=\"black\"><B>";
+        echo $row[$i];
+        echo "</B></font>";
+        echo "</td></tr>\n";
+    }
+    echo "</table>\n";
+      echo "</div>";
+  }
+
+  else {
+    $sql = "
+        SELECT PRIORITY as 'Priority:', REFERAL as 'Referal:', PERMISSION as 'PERMISSION:', NEWSLETTER as 'NEWSLETTER:'
+        FROM $category
+        WHERE ID='$id'
+        ";
+    $result = $db->query($sql);
+    $row = mysql_fetch_row($result);
+
+    $_SESSION["priority"] = mysql_result($result, 0, 0);
+    $_SESSION["referal"] = mysql_result($result, 0, 1);
+    $_SESSION["permission"] = mysql_result($result, 0, 2);
+    $_SESSION["newsletter"] = mysql_result($result, 0, 3);
+      $_SESSION["targetdb"] = $category;
+
+    echo "<div class=\"partition3\">";
+    echo "<table border=\"1\">\n";
+    for ($i = 0; $i < mysql_num_fields($result); $i++) {
+      echo "<tr>";
+      echo "<td bgcolor=\"green\" class=\"td3\">";
+      echo "<font face=\"verdana\" size=\"2\" color=\"white\"><B>";
+      echo mysql_field_name($result, $i);
+      echo "</B></font>";
+      echo "</td><td bgcolor=\"#DFFFC8\" class=\"td3\">";
+      echo "<font face=\"verdana\" size=\"2\" color=\"black\"><B>";
+      echo $row[$i];
+      echo "</B></font>";
+      echo "</td></tr>\n";
+    }
+    echo "</table>\n";
+      echo "</div>";
+    }
+
+  $sql = "
+          SELECT HISTORY as 'History:'
+          FROM $category
+          WHERE ID='$id'
+    ";
+
+  $result = $db->query($sql);
+  $row = mysql_fetch_row($result);
+
+  $_SESSION["history"] = mysql_result($result, 0, 0);
+
+  echo "<div class=\"partition4\">";
+  echo "<table border=\"1\">\n";
+  for ($i = 0; $i < mysql_num_fields($result); $i++) {
+    echo "<tr>";
+    echo "<td bgcolor=\"green\" class=\"td4\">";
+    echo "<font face=\"verdana\" size=\"2\" color=\"white\"><B>";
+    echo mysql_field_name($result, $i);
+    echo "</B></font>";
+    echo "</td><td bgcolor=\"#DFFFC8\" class=\"td2\">";
+    echo "<font face=\"verdana\" size=\"2\" color=\"black\"><B>";
+    echo $row[$i];
+    echo "</B></font>";
+    echo "</td></tr>\n";
+  }
+  echo "</table>\n";
+    echo "</div>";
+
+   echo "<table class=\"bottomband\">";
+   echo "<tr>";
+   echo "<td><a href=\"edit2.php\" class=\"bottombandelement\">Edit</a></td>";
+   echo "<td><a href=\"remove.php\" class=\"bottombandelement\">Remove</a></td>";
+   echo "<td><a href=\"printrecord.php\" class=\"bottombandelement\">Print Record</a></td>";
+   echo "<td><a href=\"printverification.php\" class=\"bottombandelement\">Print Letter</a></td>";
+   echo "<td><a href=\"preapproval.php\" class=\"bottombandelement\">Print Pre-Approval</a></td>";
+   echo "<tr>";
+   echo "</table>";
+
+
+}
+
+
+?>

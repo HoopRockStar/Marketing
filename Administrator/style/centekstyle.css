@@ -1,0 +1,296 @@
+.error {
+  color: red;
+  font-style: italic;
+  z-index: -1;
+}
+
+.errorz {
+  color: red;
+  position: relative;
+  top: 25px;
+  left: 180px;
+  font-size: 15pt;
+  z-index: 1;
+  overflow: auto;
+}
+
+#sidebar {
+  width: 150px;
+  text-align: left;
+  border-style: solid;
+  border-width: medium;
+  padding-right: 5px;
+  height: 650px;
+  background-color: #DFFFC8;
+  position: fixed;
+  top:50px;
+  left:5px;
+  color: darkgreen;
+  font: darkgreen;
+}
+
+  
+.body {
+  width: 1000px;
+  position: relative;
+  text-align: left;
+  left: 175px;
+}
+
+.ttle {
+  font-size: 15px;
+  text-align: left;
+  position: fixed;
+  top: 75px;
+  left: 175px;
+}
+
+.ttle2 {
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #138B63;
+}
+
+ .ttle3 {
+   font-size: 35px;
+   font-weight: bold;
+   text-align: center;
+   font-variant: small-caps;
+   position: relative;
+   top: 20px;
+   left: -175px;
+}
+
+.formbuttons {
+  text-align: center;
+  position: fixed;
+  bottom: 5px;
+  left: 175px 
+}
+
+ .greenfont {
+  color: #006600;
+ }
+   
+  .fieldset {
+    background: ivory;
+    font-stretch: expanded;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .legend {
+    font-weight: bold;
+    color: darkgreen;
+    font-stretch: expanded;
+    font-size: 18px;
+  }
+  
+  .cat {
+    position: fixed;
+    left: 175px;
+    top: 50px;
+    font-weight: bold;
+    color: darkgreen;
+    font-stretch: expanded;
+    font-size: 35px;
+    z-index: -1;
+  }
+  
+  .partition1 {
+    position: fixed;
+    text-align: left;
+  left: 175px;
+  top: 125px;
+ }
+ 
+ .partition2 {
+    position: fixed;
+    text-align: left;
+    left: 175px;
+    top: 310px;
+    z-index: -1;
+ }
+ 
+ .partition3 {
+  position: fixed;
+  text-align: left;
+  left: 575px;
+  top: 125px;
+  z-index: -1;
+ }
+ 
+ .td1 {
+  height: 100px;
+  width: 175px;
+ }
+ 
+ .td2 {
+  height: 100px;
+  width: 270px; 
+ }
+ 
+ .td3 {
+  height: 30px;
+  width: 175px;
+ }
+ 
+ .td4 {
+  height: 190px;
+  width: 175px;
+ }
+ 
+ 
+ .partition4 {
+  position: fixed;
+    text-align: left;
+    left: 600px;
+    top: 310px;
+    width: 345px;
+    z-index: -1;
+ }
+ 
+ .print {
+  position: fixed;
+  text-align: left;
+  top: 600px;
+  left: 175px;
+  z-index: -1;
+ }
+ 
+ .bottomband {
+  position: fixed;
+  left: 175px;
+  top: 550px;
+  z-index: -1;
+ }
+ 
+ .bottombandelement {
+  font-size: 22px;
+  padding: 10px;
+  border-style: solid;
+  border-width: medium;
+  border-color: darkgreen;
+  background-color: #DFFFC8; 
+  text-align: center;
+  text-decoration: none;
+  color: darkgreen;
+ }
+ 
+ .tabledata {
+  width: 500px
+  z-index: -1;
+ }
+ 
+ #main {
+     width: 1500px;
+     position: relative;
+     text-align: left;
+     left: 175px;
+     
+     overflow-y: scroll;
+     overflow-x: hidden;
+     
+  }
+  
+  .tablefont {
+    font-size: 10px;
+    z-index: -1;
+  }
+  
+  .bottomband2 {
+    position: fixed;
+    left: 175px;
+    top: 667px;
+  }
+  
+  .column1 {
+    position: fixed;
+      text-align: left;
+    left: 25px;
+  top: 120px;
+  z-index: -2;
+  }
+  
+  .column2 {
+    position: fixed;
+    text-align: left;
+  left: 500px;
+  top: 120px;
+  z-index: -2;
+ }
+ 
+ .column3 {
+  position: fixed;
+    text-align: left;
+  left: 300px;
+  top: 800px;
+  z-index: 100;
+ }
+ 
+ .cat2 {
+  position: fixed;
+  text-align: left;
+  left: 25px;
+  top: 50px;
+  font-weight: bold;
+  color: darkgreen;
+  font-stretch: expanded;
+    font-size: 35px;
+  z-index: -2;
+ }
+ 
+ .bottomprintbutton {
+  position: fixed;
+  text-align: left;
+  left: 25px;
+  top: 800px;
+  z-index: 100;
+  display: none;
+ }
+ 
+ .noprint {
+  display: none;
+ }
+ 
+ .bottomrow {
+  position: fixed;
+  text-align: left;
+  left: 25px;
+  top: 500px;
+ }
+ 
+ .fontsize {
+  font-size: 18px;
+  line-height: 1.35;
+ }
+ 
+ .bottombandelement2 {
+    font-size: 18px;
+    padding: 5px;
+    border-style: solid;
+  border-width: medium;
+  border-color: darkgreen;
+  background-color: #DFFFC8; 
+  text-align: center;
+  text-decoration: none;
+  color: darkgreen;
+  line-height: 5;
+ }
+ 
+ .redfont {
+  color: red;
+ }
+ 
+ .overflow {
+  overflow-y: scroll;
+  
+ }
+ 
+ .login {
+  position: absolute;
+  top: 45px;
+  left: 200px;
+  color: red;
+ }
